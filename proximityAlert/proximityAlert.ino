@@ -1,11 +1,11 @@
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h> // Biblioteca utilizada para fazer a comunicação com o display 20x4 
+#include <LiquidCrystal_I2C.h>  // Biblioteca utilizada para fazer a comunicação com o display 16x2
 
-#define col 16 // Serve para definir o numero de colunas do display utilizado
-#define lin  2 // Serve para definir o numero de linhas do display utilizado
-#define ende  0x3F // Serve para definir o endereço do display.
+#define col 16     // Define o numero de colunas do display
+#define lin 2      // Define o numero de linhas do display
+#define ende 0x3F  // Endereço do display
 
-LiquidCrystal_I2C lcd(ende,col,lin); // Chamada da funcação LiquidCrystal para ser usada com o I2C
+LiquidCrystal_I2C lcd(ende, col, lin);  // Chamada da função LiquidCrystal para ser usada com o I2C
 
 // Define os pinos do sensor ultrassônico e do buzzer
 const int triggerPin = 9;
@@ -16,11 +16,11 @@ const int buzzerPin = 8;
 long duration;
 int distance;
 
-// Menos de 5 cm irá acionar o buzzer.
+// Distância limite para acionar o buzzer.
 int max_distance = 5;
 
 void setup() {
-  // Inicializa o monitor serial
+
   Serial.begin(9600);
 
   // Define os pinos como saída ou entrada
@@ -31,9 +31,9 @@ void setup() {
   // Desliga o buzzer no início
   digitalWrite(buzzerPin, LOW);
 
-  lcd.init(); // Serve para iniciar a comunicação com o display já conectado
-  lcd.backlight(); // Serve para ligar a luz do display
-  lcd.clear(); // Serve para limpar a tela do display
+  lcd.init();       // Inicia a comunicação com o display
+  lcd.backlight();  // Liga a luz do display
+  lcd.clear();      // Limpa a tela do display
 }
 
 void loop() {
@@ -51,11 +51,11 @@ void loop() {
   distance = duration * 0.034 / 2;
 
   lcd.setBacklight(HIGH);
-  lcd.setCursor(0,0);
+  lcd.setCursor(0, 0);
   lcd.print("Distancia:");
-  lcd.setCursor(6,1);
+  lcd.setCursor(6, 1);
   lcd.print(distance);
-  lcd.setCursor(12,1);
+  lcd.setCursor(12, 1);
   lcd.print("cm");
 
   // Verifica se a distância é menor que um valor de limite (por exemplo, 20 cm)
